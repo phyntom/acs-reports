@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./AcsTemplateIn.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <p:fieldset legend="ELIGIBIITY PER BUSINESS RULES" style="margin:auto;width: 500px;"> 
+            <h:panelGrid id="searchPanel" style="margin:auto;" columns="3">
+                <p:growl id="msg"/>
+                <h:outputLabel  value="Start Date: "/>
+                <p:calendar pattern="dd-MM-yyyy" converter="localDateTimeConverter" value="#{eligibilityBean.startDate}" id="startdate"/>
+                <p:message for="startdate" showSummary="true"/>
+                <h:outputLabel  value="End Date: "/>
+                <p:calendar pattern="dd-MM-yyyy" converter="localDateTimeConverter" value="#{eligibilityBean.endDate}" id="enddate"/>
+                <p:message for="enddate" showSummary="true"/>
+                <h:outputLabel id="elig1"  value="Eligibility Status: "/>
+                <h:selectOneMenu id="center" converter="EligibilityStatusConverter" value="#{eligibilityBean.eligibilityStatus}">
+                    <f:selectItems var="eligibility" value="#{eligibilityBean.configEligibilities}"/> 
+                </h:selectOneMenu>
+                <p:message for="elig1" showSummary="true"/>
+                <h:outputLabel id="empty" value="" />
+                <p:commandButton ajax="false" type="submit" process="searchPanel" update="eligibilitydata,msg" action="#{eligibilityBean.findElibigibiltyRecordsByStatus()}" value="Submit"/>
+            </h:panelGrid>
+        </p:fieldset>
+        <p:separator/>
+        <p:dataTable   paginator="true" rows="20" paginatorPosition="bottom"  
+                       rowsPerPageTemplate="5,10,15,25,50,75,100"
+                       id="eligibilitydata" var="item" value="#{eligibilityBean.eligibilityRecords}">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DATE"/>
+                </f:facet>
+                <h:outputText value="#{item.rptDatetime}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DESCRIPTION"/>
+                </f:facet>
+                <h:outputText value="#{item.eligibilityCode.eligibilityStatusDesc}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="TOTAL COUNT"/>
+                </f:facet>
+                <h:outputText value="#{item.requestTotalCount}" />
+            </p:column>
+        </p:dataTable>
+        <h:commandLink value="To Excel ">
+            <p:graphicImage url="./resources/img/Excel-icon.png"/>
+            <p:dataExporter target="eligibilitydata" type="xls" fileName="ELIGIBILITY REPORT"/>
+        </h:commandLink> 
+    </ui:define>
+</ui:composition>

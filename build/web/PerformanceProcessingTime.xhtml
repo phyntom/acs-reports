@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html >
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./AcsTemplateIn.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <p:fieldset legend="PROCESSING STATS" style="margin:auto;width: 500px;">
+            <h:panelGrid id="searchPanel" style="margin:auto;" columns="3">
+                <h:outputLabel  value="Start Date: "/>
+                <p:calendar pattern="dd-MM-yyyy" converter="localDateTimeConverter"  value="#{performanceBean.startDate}" id="startdate"/>
+                <p:message for="startdate" showSummary="true"/>
+                <h:outputLabel  value="End Date: "/>
+                <p:calendar pattern="dd-MM-yyyy" converter="localDateTimeConverter"  value="#{performanceBean.endDate}" id="enddate"/>
+                <p:message for="enddate" showSummary="true"/>
+                <h:outputLabel id="empty" value="" />
+                <p:commandButton type="submit" icon="ui-icon-search" process="searchPanel" update="processingdata"
+                                 action="#{performanceBean.findTransactionsRecords()}" value="Submit"/>
+            </h:panelGrid>
+        </p:fieldset>
+        <p:separator/>
+        <p:dataTable id="processingdata" paginator="true" rows="15" rowsPerPageTemplate="5,10,15,25,50,75,100"
+                     var="item" value="#{performanceBean.transactions}">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="DATE"/>
+                </f:facet>
+                <h:outputText value="#{item.rptDatetime}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="MIN PROC TIME"/>
+                </f:facet>
+                <h:outputText value="#{item.minRequestProcTime}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="AVG PROC TIME"/>
+                </f:facet>
+                <h:outputText value="#{item.avgRequestProcTime}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="MAX PROC TIME"/>
+                </f:facet>
+                <h:outputText value="#{item.maxRequestProcTime}" />
+            </p:column>
+        </p:dataTable>
+        <h:commandLink value="To Excel ">
+            <p:graphicImage url="./resources/img/Excel-icon.png"/>
+            <p:dataExporter target="processingdata" type="xls" fileName="PROCESSING-REPORT"/>
+        </h:commandLink> 
+        <br />
+    </ui:define>
+</ui:composition>

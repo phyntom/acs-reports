@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
+    <h:head>
+        <link href="./resources/css/default.css" rel="stylesheet"  type="text/css"/>
+        <link href="./resources/css/cssLayout.css" rel="stylesheet"  type="text/css"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div id="topLogo">
+                <div >
+                    <p:graphicImage value="#{appSettingsMBean.logoPath}" alt="ACS-LOGO"/>
+                </div>
+                <div>
+                    <h:outputLabel styleClass="title" value="#{appSettingsMBean.headerTitle}"/> 
+                </div>
+                <p:ajaxStatus styleClass="title" style="left:360px; width:32px; height:32px; margin-top:0px;">
+                    <f:facet name="start">
+                        <h:graphicImage library="img" name="ajax-loader.gif" alt="Loading...."/>
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value=""/>
+                    </f:facet>
+                </p:ajaxStatus>
+            </div>
+            <div id="topPanel">
+                <ul>
+                    <li>
+                        <p:commandLink ajax="false"  action="#{user.logout()}">
+                            <h:outputText value="Logout"/>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink >
+                            <h:outputText value="Change Password"/>
+                        </p:commandLink>
+                    </li>
+                    <!-- <li>
+                         <p:commandLink >
+                             <h:outputText value="Support"/>
+                         </p:commandLink>
+                     </li>
+                     <li class="last">
+                         <p:commandLink ajax="false"  target="_target">
+                             <h:outputText value="About us"/>
+                         </p:commandLink>
+                     </li> -->
+                </ul>
+            </div>
+            <div>
+                <p:menubar styleClass="customMenuBar">
+                    <p:submenu label="Revenue" icon="ui-icon-calculator">
+                        <p:menuitem value="Daily Revenue" outcome="RevenueDaily.xhtml"/>
+                        <p:menuitem value="Total Daily Revenue" outcome="RevenueDailyTotal.xhtml"/>
+                    </p:submenu>
+                    <p:submenu label="Usage">
+                        <p:menuitem value="Daily Subscriber" outcome="UsageDailySubs.xhtml"/>
+                        <p:menuitem value="Daily Usage" outcome="UsageDaily.xhtml"/>
+                    </p:submenu>
+                    <p:submenu label="Eligibility">
+                        <p:menuitem value="Eligibility Details" url="EligibilityCodes.xhtml"/>
+                        <p:menuitem value="Eligibility Per Business Rules" url="Eligibility.xhtml"/>
+                    </p:submenu>
+                    <p:submenu label="Perfomance">
+                        <p:menuitem value="Performance Stats" outcome="PerformanceProcessingTime.xhtml"/>
+                    </p:submenu>
+                    <p:menuitem style="color: #ffffff;" value="Connected : #{acsUser.userFullName}" icon="ui-icon-person"/>
+                </p:menubar>
+            </div>
+        </h:form>
+    </h:body>
+</html>
