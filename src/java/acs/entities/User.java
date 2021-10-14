@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -35,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByUserFullName", query = "SELECT u FROM User u WHERE u.userFullName = :userFullName"),
-    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM User u WHERE u.userType = :userType"),
+//    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM User u WHERE u.userType = :userType"),
     @NamedQuery(name = "User.findByCreationTime", query = "SELECT u FROM User u WHERE u.creationTime = :creationTime"),
     @NamedQuery(name = "User.findByUserStatus", query = "SELECT u FROM User u WHERE u.userStatus = :userStatus"),
     @NamedQuery(name = "User.findByUserNameAndPassword", query = "SELECT u FROM User u WHERE u.userName = :userName AND u.password = :password")})
@@ -65,10 +63,9 @@ public class User implements Serializable {
     @Column(name = "user_full_name")
     private String userFullName;
 
-    @ManyToOne
-    @JoinColumn(name = "user_type_id")
-    private UserType userType;
-
+//    @ManyToOne
+//    @JoinColumn(name = "user_type_id")
+//    private int userType;
     @Basic(optional = false)
     @NotNull
     @Column(name = "creation_time")
@@ -87,11 +84,11 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public User(Integer userId, String userName, String password, UserType userType, Date creationTime, short userStatus) {
+    public User(Integer userId, String userName, String password, Date creationTime, short userStatus) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
-        this.userType = userType;
+//        this.userType = userType;
         this.creationTime = creationTime;
         this.userStatus = userStatus;
     }
@@ -128,14 +125,13 @@ public class User implements Serializable {
         this.userFullName = userFullName;
     }
 
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
+//    public UserType getUserType() {
+//        return userType;
+//    }
+//
+//    public void setUserType(UserType userType) {
+//        this.userType = userType;
+//    }
     public Date getCreationTime() {
         return creationTime;
     }

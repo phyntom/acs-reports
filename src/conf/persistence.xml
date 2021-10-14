@@ -14,7 +14,6 @@
     <class>acs.entities.DateTimeConverter</class>
     <class>acs.entities.ConfigGuiVariables</class>
     <class>acs.entities.User</class>
-    <class>acs.entities.UserType</class>
     <class>acs.entities.RptRevenueTotalDaily</class>
     <class>acs.entities.RptSmsKpi</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>

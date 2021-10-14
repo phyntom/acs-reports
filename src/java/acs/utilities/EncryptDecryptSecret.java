@@ -11,7 +11,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
-import org.apache.log4j.Logger;
 
 public class EncryptDecryptSecret {
 
@@ -70,13 +69,13 @@ public class EncryptDecryptSecret {
         Key key = new SecretKeySpec(EncryptDecryptSecret.KEY.getBytes(), EncryptDecryptSecret.ALGORITHM);
         return key;
     }
-    
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         try {
             System.out.println(EncryptDecryptSecret.encrypt("reports"));
             System.out.println(EncryptDecryptSecret.decrypt("71txc/cBEP5KoSGvsK1t5A=="));
         } catch (Exception ex) {
-            
+
         }
     }
 }
